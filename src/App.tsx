@@ -65,6 +65,7 @@ import styled from "@emotion/styled";
 import { useState } from 'react';
 import { Label } from "components/Label";
 import { Button } from 'components/Button';
+import { Component } from "react";
 const Container = styled.div`
     height: 100vh;
     display: flex;
@@ -83,7 +84,7 @@ const Contents = styled.div`
     justify-content: center;
 `
 
-function App() {
+/* function App() {
     const [counter,setCounter] = useState(0)
     const sub = () => {
         setCounter(counter - 1);
@@ -103,4 +104,49 @@ function App() {
     )
 }
 
-export default App;
+export default App; */
+
+//App 컴포넌트는 Props를 사용하지 않고, state만 사용하기에 Record<string,never> 선언
+
+type Props = Record<string,never>;
+interface State {
+    readonly counter: number;
+}
+
+export default class App extends Component<Props,State>{
+    //클래스 컴포넌트는 클래스 이기에 생성자 사용 가능 => State를 초기화하는 데 활용
+    constructor(props:Props){
+        super(props);
+        this.state = {
+            counter:0,
+        }
+    }
+    private sub = () => {
+        const {counter} = this.state;
+        this.setState({
+            counter: counter - 1,
+        }); 
+    };
+    private plus = () => {
+        const {counter} = this.state;
+        this.setState({
+            counter:counter +1,
+        });
+    };
+
+    render() {
+        const {counter} = this.state;
+        return(
+            <Container>
+                <Title>Counter App</Title>
+                <Contents>
+                    <Button label="-" onClick={this.sub} />
+                    <Label data={counter}/>
+                    <Button label="+" onClick={this.plus}/>
+                </Contents>
+            </Container>
+        );
+        
+    }
+
+}
