@@ -1,12 +1,9 @@
 import styled from "@emotion/styled";
-
-import {useState} from "react";
-import {DataView} from "components/DataView";
-import { ToDoInput } from "components/ToDoInput";
-import { Button } from "components/Button";
-import { ShowInputButton } from "components/ShowInputButton";
-import { InputContainer } from "components/InputContainer";
+import {DataView} from "pages/DataView";
 import {ToDoListContextProvider} from "contexts/ToDoList";
+import {Routes, Route} from 'react-router-dom';
+import { ToDoInput } from "pages/ToDoInput";
+import {Header} from "components/Header";
 const Container = styled.div`
     height: 100vh;
     display: flex;
@@ -15,16 +12,35 @@ const Container = styled.div`
     justify-content: center;
     background-color: #b29999;
 `
+const NotFound = styled.div`
+    text-align: center;
+`
+
 
 function App() {
 
     return(
         <Container> 
             <ToDoListContextProvider>
-                <DataView />
-                <InputContainer />
-            </ToDoListContextProvider>
-            
+                <Header />
+                <Routes>
+                    <Route
+                        path="/"
+                        element={<DataView />}
+                    />
+                    <Route path="/add" element={<ToDoInput />} />
+                    <Route
+                        path="*"
+                        element={
+                            <NotFound>
+                                404
+                                <br />
+                                Not FOUND
+                            </NotFound>
+                        }
+                    />
+                </Routes>
+            </ToDoListContextProvider>     
         </Container>
     )
 }
