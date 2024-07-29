@@ -11,16 +11,16 @@ const Container = styled.div`
     padding : 32px;
     border-radius: 8px;
 `
-interface Props{
-    readonly toDoList: ReadonlyArray<string>;
-    readonly onDelete?: (todo:string) => void
-}
+// interface Props{
+//     readonly toDoList: ReadonlyArray<string>;
+//     readonly onDelete?: (todo:string) => void
+// }
 
-export const DataView = ({toDoList, onDelete}: Props) => {
+export const DataView = () => {
     return(
         <Container>
-             <Title label="할 일 목록"/>
-            <ToDoList toDoList={toDoList} onDelete={onDelete}/>
+            <Title label="할 일 목록"/>
+            <ToDoList />
         </Container>
     )
 }

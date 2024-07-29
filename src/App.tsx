@@ -6,6 +6,7 @@ import { ToDoInput } from "components/ToDoInput";
 import { Button } from "components/Button";
 import { ShowInputButton } from "components/ShowInputButton";
 import { InputContainer } from "components/InputContainer";
+import {ToDoListContextProvider} from "contexts/ToDoList";
 const Container = styled.div`
     height: 100vh;
     display: flex;
@@ -16,24 +17,14 @@ const Container = styled.div`
 `
 
 function App() {
-    const [toDoList, setToDoList] = useState<Array<string>>([
-        '1',
-        '2',
-        '3'
-    ])
 
-    const onAdd =(toDo:string) => {
-        setToDoList([...toDoList, toDo]);
-    }
-    
-    const onDelete = (todo:string) => {
-        setToDoList(toDoList.filter((item) => item !== todo));
-    }
-   
     return(
-        <Container>  
-            <DataView toDoList={toDoList} onDelete={onDelete}/>
-                <InputContainer onAdd={onAdd}/>
+        <Container> 
+            <ToDoListContextProvider>
+                <DataView />
+                <InputContainer />
+            </ToDoListContextProvider>
+            
         </Container>
     )
 }
